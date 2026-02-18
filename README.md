@@ -141,9 +141,9 @@ This allows the module to be normally operated via a carrier board USB connectio
 
 ### Power
 
-*   Input supply: **VBUS / 5 V / 3.3 V**
-*   **TPS74801** low‑dropout regulator generating 3.3 V
-*   Power‑good signaling implemented
+*   Input supply: **VBUS / 5 V / 3.3 V** (5V and 3.3V is selectable by onboard solder jumper)
+*   **TPS74801** low‑dropout regulator generating 3.3 V in case of 5V power is selected
+*   Power‑good signaling with visal feedback (LED)
 *   USB VBUS sensing routed to ADC
 *   Optional USB‑powered operation depending on component population (as noted in schematics)
 
