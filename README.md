@@ -52,6 +52,18 @@ This repository contains the schematics and documentation.
 - [BladeCore‑M54 schematics (PDF)](src/PDF/BladeCore-M54_Schematics.pdf).
 - [BladeCore‑M54 KiCad folder](src/HardwareDesign/1.0.0/).
 
+### Resources
+
+- **KiCad Libraries:** [src/HardwareDesign/Libraries/KiCad](src/HardwareDesign/Libraries/KiCad)
+    - BladeCore‑M54E footprint 
+    - BladeCore‑M54E symbol
+    - Plain M.2 connector footprint (MDT420E03001)
+    - 3D STEP: BladeCore‑M54E + MDT420E03001 assembly
+    - 3D STEP: M.2 connector
+- **Eagle Libraries:** [src/HardwareDesign/Libraries/Eagle](src/HardwareDesign/Libraries/Eagle)
+    - Status: Work in progress
+
+
 
 ## Hardware Overview
 
