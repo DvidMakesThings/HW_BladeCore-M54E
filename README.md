@@ -17,7 +17,7 @@ The BladeCore series consists of the following hardware variants:
 | [BladeCore‑M40C](#) | RP2040  | CAN      | -          | Work in progress |
 | [BladeCore‑M54](#)  | RP2354B | —        | -          | Work in progress |
 | [BladeCore‑M54E](https://github.com/DvidMakesThings/HW_BladeCore-M54E) | RP2354B | Ethernet | 2280       | Available |
-| [BladeCore‑M54C](#) | RP2354B | CAN      | -          | Work in progress |
+| [BladeCore‑M54C](https://github.com/DvidMakesThings/HW_BladeCore-M54C) | RP2354B | CAN      | 2280       | Available |
 
 ### Naming Scheme Explanation
 
@@ -49,7 +49,7 @@ The design integrates:
 
 This repository contains the schematics and documentation.
 
-- [BladeCore‑M54 schematics (PDF)](src/PDF/BladeCore-M54_Schematics.pdf).
+- [BladeCore‑M54 schematics (PDF)](src/PDF/BladeCore-M54E_Schematics.pdf).
 - [BladeCore‑M54 KiCad folder](src/HardwareDesign/1.0.0/).
 
 ### Resources
@@ -84,7 +84,6 @@ This repository contains the schematics and documentation.
 *   **M‑Key**
 *   Power and I/O routed through the M.2 edge connector
 
-***
 
 ### Microcontroller
 
@@ -94,7 +93,6 @@ This repository contains the schematics and documentation.
 *   SWD debug interface available
 *   GPIOs routed to the M.2 edge connector
 
-***
 
 ### Memory
 
@@ -118,7 +116,6 @@ This repository contains the schematics and documentation.
 *   Dedicated reset and interrupt signals
 *   Link and activity LEDs implemented
 
-***
 
 ### USB
 
@@ -137,7 +134,6 @@ A **FSUSB42 USB 2.0 high‑speed multiplexer** is used to select which USB path 
 
 This allows the module to be normally operated via a carrier board USB connection, while still enabling direct access through the onboard USB‑C connector when needed, without manual configuration.
 
-***
 
 ### Power
 
