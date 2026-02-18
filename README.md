@@ -70,10 +70,10 @@ This repository contains the schematics and documentation.
 <table>
     <tr>
         <td align="center">
-            <img src="images/BladeCore_Top.png" alt="BladeCore‑M54E top view" width="250"><br><em>Top view</em>
+            <img src="images/BladeCore-M54E_Top-removebg.png" alt="BladeCore‑M54E top view" width="250"><br><em>Top view</em>
         </td>
         <td align="center">
-            <img src="images/BladeCore_Bottom.png" alt="BladeCore‑M54E bottom view" width="250"><br><em>Bottom view</em>
+            <img src="images/BladeCore-M54E_Bottom-removebg.png" alt="BladeCore‑M54E bottom view" width="250"><br><em>Bottom view</em>
         </td>
     </tr>
  </table>
