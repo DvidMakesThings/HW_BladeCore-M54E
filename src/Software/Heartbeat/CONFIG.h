@@ -70,9 +70,18 @@
 // #define PIN_GPIO25            25      /* M.2 pin 8  - Unused */
 // #define PIN_GPIO26            26      /* M.2 pin 6  - Unused */
 // #define PIN_GPIO27            27      /* M.2 pin 4  - Unused */
-// #define PIN_GPIO37            37      /* M.2 right side - Unused */
-// #define PIN_GPIO38            38      /* M.2 right side - Unused */
-// #define PIN_GPIO39            39      /* M.2 right side - Unused */
+
+/* GPIO37, GPIO38, GPIO39 are NOT connected on BladeCore-M54E */
+#ifdef PIN_GPIO37
+#error "GPIO37 is not connected on BladeCore-M54E"
+#endif
+#ifdef PIN_GPIO38
+#error "GPIO38 is not connected on BladeCore-M54E"
+#endif
+#ifdef PIN_GPIO39
+#error "GPIO39 is not connected on BladeCore-M54E"
+#endif
+
 // #define PIN_ADC0              40      /* M.2 pin 46 / ADC0 - Unused */
 // #define PIN_ADC1              41      /* M.2 pin 48 / ADC1 - Unused */
 // #define PIN_ADC2              42      /* M.2 pin 50 / ADC2 - Unused */
