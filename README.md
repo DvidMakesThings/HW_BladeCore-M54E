@@ -16,8 +16,8 @@ The BladeCore series consists of the following hardware variants:
 | [BladeCore‑M40E](#) | RP2040  | Ethernet | -          | Work in progress |
 | [BladeCore‑M40C](#) | RP2040  | CAN      | -          | Work in progress |
 | [BladeCore‑M54](#)  | RP2354B | —        | -          | Work in progress |
-| [BladeCore‑M54E](https://github.com/DvidMakesThings/HW_BladeCore-M54E) | RP2354B | Ethernet | 2280       | Available |
-| [BladeCore‑M54C](https://github.com/DvidMakesThings/HW_BladeCore-M54C) | RP2354B | CAN      | 2280       | Available |
+| [BladeCore‑M54E](https://github.com/DvidMakesThings/HW_BladeCore-M54E) | RP2354B | Ethernet | 2980       | Available |
+| [BladeCore‑M54C](https://github.com/DvidMakesThings/HW_BladeCore-M54C) | RP2354B | CAN      | 2980       | Available |
 
 ### Naming Scheme Explanation
 
@@ -36,7 +36,7 @@ Each BladeCore variant is implemented as a **separate hardware design and reposi
 ## Description
 
 BladeCore‑M54E is a compact controller module built around the **RP2354B** microcontroller, combined with a **W5500 Ethernet controller with integrated PHY**.  
-The module is designed as a **2280‑size M.2 M‑Key card**, intended to be embedded into a carrier board or system that provides power through the M.2 edge connector.
+The module is designed as a **2980‑size M.2 M‑Key card** (29 mm wide, 80 mm long, non‑standard width), intended to be embedded into a carrier board or system that provides power through the M.2 edge connector.
 
 The design integrates:
 
@@ -80,7 +80,7 @@ This repository contains the schematics and documentation.
 
 ### Form Factor
 
-*   **M.2 2280**
+*   **M.2 2980**
 *   **M‑Key**
 *   Power and I/O routed through the M.2 edge connector
 
@@ -101,7 +101,7 @@ This repository contains the schematics and documentation.
     *   Capacity: **2 MB**
 *   **External QSPI Flash**
     *   W25Q128JVPIQ
-    *   Capacity: **8 MB**
+    *   Capacity: **16 MB**
 *   **External I²C EEPROM**
     *   AT24C256
     *   Capacity: **256 kbit**
@@ -137,11 +137,12 @@ This allows the module to be normally operated via a carrier board USB connectio
 
 ### Power
 
-*   Input supply: **VBUS / 5 V / 3.3 V** (5V and 3.3V is selectable by onboard solder jumper)
-*   **TPS74801** low‑dropout regulator generating 3.3 V in case of 5V power is selected
-*   Power‑good signaling with visal feedback (LED)
+*   Input supply: **5 V** (M.2 pins 14/16 or VBUS) or **3.3 V** (M.2 pins 10/12, LDO bypassed)
+*   **TPS74801** low‑dropout regulator generating 3.3 V from 5 V input
+*   Regulated 3.3 V output to carrier board on M.2 pins 10/12 (up to 1 A, limited by connector)
+*   Power‑good signaling with visual feedback (LED via SN74LVC1G97 buffer)
 *   USB VBUS sensing routed to ADC
-*   Optional USB‑powered operation depending on component population (as noted in schematics)
+*   Four power paths: M.2 5 V, M.2 VBUS, onboard USB‑C, or external 3.3 V
 
 ### M.2 Connector Pinout
 
@@ -192,10 +193,10 @@ This allows the module to be normally operated via a carrier board USB connectio
 | 4 | GPIO27 | *SPI1 TX | UART1 RTS | I2C1 SCL | PWM5 B | SIO | PIO0 | PIO1 | PIO2 | | |
 | 6 | GPIO26 | *SPI1 SCK | UART1 CTS | I2C1 SDA | PWM5 A | SIO | PIO0 | PIO1 | PIO2 | | |
 | 8 | GPIO25 | *SPI1 CSn | UART1 RX | **I2C0 SCL | PWM4 B | SIO | PIO0 | PIO1 | PIO2 | | CLOCK GPOUT3 |
-| 10 | PWR | | | | | | | | | | |
-| 12 | PWR | | | | | | | | | | |
-| 14 | PWR | | | | | | | | | | |
-| 16 | PWR | | | | | | | | | | |
+| 10 | +3.3V OUTPUT | | | | | | | | | | |
+| 12 | +3.3V OUTPUT | | | | | | | | | | |
+| 14 | +5V INPUT | | | | | | | | | | |
+| 16 | +5V INPUT | | | | | | | | | | |
 | 18 | LINKLED | | | | | | | | | | |
 | 20 | ACTLED | | | | | | | | | | |
 | 22 | GND | | | | | | | | | | |
@@ -225,7 +226,7 @@ This allows the module to be normally operated via a carrier board USB connectio
 
 *SPI1 is used for the onboard Ethernet controller (W5500)
 
-**I2C0 is used for the onboard EEPROM (AT24C256)
+**I2C0 is used for the onboard EEPROM (AT24C256) on GPIO32/33, which are internal to the module and not routed to the M.2 connector. Carrier board I2C0 on other GPIO pairs is physically independent.
 
 
 ## Revision History
