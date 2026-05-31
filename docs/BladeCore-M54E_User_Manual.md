@@ -355,7 +355,7 @@ The USB VBUS voltage is monitored via GPIO46 (ADC6) through a resistive voltage 
 
 - Divider: 5.1 kOhm / 5.1 kOhm
 - ADC input voltage at 5.0 V VBUS: ~2.5 V
-- Formula: VBUS = ADC_reading * (3.3 / 4096) * 2
+- Formula: VBUS = ADC_reading * (3.0 / 4096) * 2
 
 This allows firmware to detect whether USB power is present and measure the
 actual VBUS voltage.
@@ -802,7 +802,7 @@ float read_vbus_voltage(void) {
     adc_read();           // Throwaway sample after channel switch
     uint16_t raw = adc_read();
     // 5.1K / 5.1K divider, factor = 2
-    return (float)raw * 3.3f / 4096.0f * 2.0f;
+    return (float)raw * 3.0f / 4096.0f * 2.0f;
 }
 
 // Read precision voltage reference (3.0V nominal)
@@ -811,7 +811,7 @@ float read_vref(void) {
     adc_read();           // Throwaway sample after channel switch
     uint16_t raw = adc_read();
     // 10K / 10K divider, factor = 2
-    return (float)raw * 3.3f / 4096.0f * 2.0f;
+    return (float)raw * 3.0f / 4096.0f * 2.0f;
 }
 
 // Calculate ADC calibration factor using known reference
@@ -819,7 +819,7 @@ float get_adc_calibration_factor(void) {
     adc_select_input(7);
     adc_read();           // Throwaway sample after channel switch
     uint16_t raw = adc_read();
-    float measured = (float)raw * 3.3f / 4096.0f * 2.0f;
+    float measured = (float)raw * 3.0f / 4096.0f * 2.0f;
     return 3.0f / measured;  // Ratio of known vs measured
 }
 ```
@@ -1045,7 +1045,7 @@ int main(void) {
     adc_select_input(7);  // ADC7 = GPIO47 (VREF)
     adc_read();           // Throwaway sample after channel switch
     uint16_t ref_raw = adc_read();
-    float ref_measured = (float)ref_raw * 3.3f / 4096.0f * 2.0f;
+    float ref_measured = (float)ref_raw * 3.0f / 4096.0f * 2.0f;
     float cal_factor = 3.0f / ref_measured;
 
     printf("Reference ADC raw: %u\n", ref_raw);
@@ -1057,7 +1057,7 @@ int main(void) {
         adc_select_input(6);  // ADC6 = GPIO46 (VUSB)
         adc_read();           // Throwaway sample after channel switch
         uint16_t vbus_raw = adc_read();
-        float vbus = (float)vbus_raw * 3.3f / 4096.0f * 2.0f * cal_factor;
+        float vbus = (float)vbus_raw * 3.0f / 4096.0f * 2.0f * cal_factor;
 
         printf("VBUS: %.2f V (raw: %u)\n", vbus, vbus_raw);
         sleep_ms(1000);
