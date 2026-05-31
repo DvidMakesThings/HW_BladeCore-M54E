@@ -1,10 +1,11 @@
-# BladeCore-M54E User Manual
+---
+title: "BladeCore-M54E User Manual"
+---
 
 **Hardware Revision:** 1.0.0
 **Date:** 2026-01-31
 **Author:** DMT
 
----
 
 ## Table of Contents
 
@@ -27,7 +28,6 @@
 17. [Absolute Maximum Ratings](#17-absolute-maximum-ratings)
 18. [Revision History](#18-revision-history)
 
----
 
 ## 1. Introduction
 
@@ -67,7 +67,6 @@ BladeCore-M54E belongs to the BladeCore modular controller series:
 **Naming convention:** M40 = RP2040-based, M54 = RP2354B-based. Suffix E = Ethernet,
 C = CAN, no suffix = base module.
 
----
 
 ## 2. General Specifications
 
@@ -89,7 +88,6 @@ C = CAN, no suffix = base module.
 | Form Factor               | M.2 2980 M-Key                                     |
 | PCB Layers                | 6                                                  |
 
----
 
 ## 3. Electrical Characteristics
 
@@ -148,7 +146,6 @@ C = CAN, no suffix = base module.
 | Package                  | SOT-23             |
 | Connected To             | ADC7 (GPIO47) via 10K-10K divider |
 
----
 
 ## 4. Microcontroller
 
@@ -206,7 +203,6 @@ It features hardware floating-point, DSP extensions, and the RP2-series PIO
 > Attempting to use these pins will have no effect. The firmware header CONFIG.h
 > includes compile-time guards to catch accidental use.
 
----
 
 ## 5. Memory Subsystem
 
@@ -254,7 +250,6 @@ M.2 edge connector, it operates on a physically separate bus - address 0x50 is f
 available on the carrier board side. The EEPROM is ideal for storing configuration
 data, calibration values, serial numbers, or small persistent datasets.
 
----
 
 ## 6. Ethernet Interface
 
@@ -318,7 +313,6 @@ The LINKLED and ACTLED pins can drive indicator LEDs on the carrier board (activ
 - Load Capacitance: 12 pF
 - Package: X3225
 
----
 
 ## 7. USB Interface
 
@@ -366,7 +360,6 @@ The USB VBUS voltage is monitored via GPIO46 (ADC6) through a resistive voltage 
 This allows firmware to detect whether USB power is present and measure the
 actual VBUS voltage.
 
----
 
 ## 8. Power Management
 
@@ -424,13 +417,12 @@ to GPIO47 (ADC7) through a 10K / 10K voltage divider. This enables:
 ```
 Expected ADC reading for 3.0V reference through 10K/10K divider:
   VADC = 3.0 / 2 = 1.5 V
-  Expected ADC code = 1.5 / 3.3 * 4096 = ~1862
+  Expected ADC code = 1.5 / 3.0 * 4096 = ~2048
 
-  Calibration factor = 1862 / actual_adc_reading
+  Calibration factor = 2048 / actual_adc_reading
   Apply this factor to all subsequent ADC readings.
 ```
 
----
 
 ## 9. M.2 Connector Pinout
 
@@ -524,7 +516,6 @@ Expected ADC reading for 3.0V reference through 10K/10K divider:
 - **GPIO37, GPIO38, GPIO39** are not connected.  Do not assign any function to these
   pins in firmware.
 
----
 
 ## 10. Onboard Peripherals
 
@@ -563,7 +554,6 @@ reset and boot-mode selection.
 | SP0503BAHTG    | USB data line ESD clamping       |
 | RCLAMP0582BQTCT| General I/O ESD clamping        |
 
----
 
 ## 11. Power-Up Sequencing
 
@@ -585,7 +575,6 @@ The board follows a defined power-up sequence with the following timeline:
 > least 50 ms after asserting the W5500 reset pin before attempting SPI
 > communication.
 
----
 
 ## 12. Getting Started -- Software
 
@@ -655,7 +644,6 @@ rate (USB CDC is rate-independent):
 # Select the COM port assigned to the Pico
 ```
 
----
 
 ## 13. Programming Guide
 
@@ -936,7 +924,6 @@ target_include_directories(MyProject PRIVATE
 pico_add_extra_outputs(MyProject)
 ```
 
----
 
 ## 14. Code Examples
 
@@ -1078,7 +1065,6 @@ int main(void) {
 }
 ```
 
----
 
 ## 15. Design Considerations for Carrier Boards
 
@@ -1134,7 +1120,6 @@ keep trace lengths matched within 50 mils.
 - Keep the Ethernet trace area away from high-speed digital signals (SPI clock,
   USB data lines).
 
----
 
 ## 16. Mechanical Specifications
 
@@ -1148,7 +1133,6 @@ keep trace lengths matched within 50 mils.
 | Mounting               | M2.5 threaded standoff  |
 | Weight                 | < 10 g                  |
 
----
 
 ## 17. Absolute Maximum Ratings
 
@@ -1169,7 +1153,6 @@ Exceeding absolute maximum ratings may cause permanent damage to the module.
 > connected to the M.2 connector must be 3.3 V logic.  Use level shifters on
 > the carrier board if interfacing with 5 V systems.
 
----
 
 ## 18. Revision History
 
@@ -1177,7 +1160,6 @@ Exceeding absolute maximum ratings may cause permanent damage to the module.
 |----------|------------|------------------|
 | 1.0.0    | 2026-01-31 | Initial creation |
 
----
 
 *This document is derived from the BladeCore-M54E schematics (v1.0.0) and
 associated design files. Component-level limits and behavior should be verified
@@ -1185,4 +1167,4 @@ against the respective datasheets. For the latest information, refer to the
 project repository.*
 
 *Hardware licensed under CC BY-NC-SA 4.0.*
-*Contact: dvidmakesthings@gmail.com | GitHub: DvidMakesThings*
+*Contact: info@dmt-hw.com | GitHub: DvidMakesThings*

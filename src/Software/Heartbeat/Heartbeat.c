@@ -10,6 +10,7 @@
 #include "pico/stdlib.h"
 #include "hardware/pwm.h"
 #include "hardware/clocks.h"
+#include "hardware/i2c.h"
 #include "CONFIG.h"
 
 /* PWM wrap value -- higher gives finer brightness resolution */
@@ -44,10 +45,58 @@ static inline void heartbeat_set_brightness(uint16_t level)
     pwm_set_chan_level(slice, channel, level);
 }
 
+/* Write a single byte to an MCP23017 register.  Returns true on success. */
+static bool mcp23017_write_reg(uint8_t reg, uint8_t val)
+{
+    uint8_t buf[2] = {reg, val};
+    int ret = i2c_write_blocking(MCP23017_I2C_INSTANCE,
+                                 MCP23017_I2C_ADDR,
+                                 buf, 2, false);
+    return (ret == 2);
+}
+
+/* Reset and initialise the MCP23017.  Returns true if the device responds. */
+static bool mcp23017_init(void)
+{
+    /* Hardware reset (active low) */
+    gpio_init(PIN_MCP23017_RST);
+    gpio_set_dir(PIN_MCP23017_RST, GPIO_OUT);
+    gpio_put(PIN_MCP23017_RST, 0);
+    sleep_ms(1);
+    gpio_put(PIN_MCP23017_RST, 1);
+    sleep_ms(1);
+
+    /* Configure I2C1 pins */
+    i2c_init(MCP23017_I2C_INSTANCE, MCP23017_I2C_BAUDRATE);
+    gpio_set_function(PIN_I2C1_SDA, GPIO_FUNC_I2C);
+    gpio_set_function(PIN_I2C1_SCL, GPIO_FUNC_I2C);
+    gpio_pull_up(PIN_I2C1_SDA);
+    gpio_pull_up(PIN_I2C1_SCL);
+
+    /*
+     * GPA1, GPA3, GPA5, GPA7 -> output high
+     * IODIRA: 0 = output, 1 = input (default 0xFF)
+     *   bits 1,3,5,7 cleared -> 0x55
+     * OLATA:  bits 1,3,5,7 set   -> 0xAA
+     */
+    if (!mcp23017_write_reg(MCP23017_REG_OLATA, 0xAA))
+        return false;
+    if (!mcp23017_write_reg(MCP23017_REG_IODIRA, 0x55))
+        return false;
+
+    return true;
+}
+
 int main(void)
 {
     stdio_init_all();
     heartbeat_pwm_init();
+
+    gpio_init(PIN_5V_BUCK_EN);
+    gpio_set_dir(PIN_5V_BUCK_EN, GPIO_OUT);
+    gpio_put(PIN_5V_BUCK_EN, 1);
+
+    mcp23017_init();
 
     /*
      * Simple fade in / fade out:

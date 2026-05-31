@@ -47,7 +47,8 @@ pico_enable_stdio_usb(Heartbeat 1)
 # Add the standard library to the build
 target_link_libraries(Heartbeat
         pico_stdlib
-        hardware_pwm)
+        hardware_pwm
+        hardware_i2c)
 
 # Add the standard include files to the build
 target_include_directories(Heartbeat PRIVATE

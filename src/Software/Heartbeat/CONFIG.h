@@ -44,8 +44,8 @@
 /* -------------------------------------------------------------------------- */
 // #define PIN_GPIO0             0       /* M.2 pin 57 - Unused */
 // #define PIN_GPIO1             1       /* M.2 pin 55 - Unused */
-// #define PIN_GPIO2             2       /* M.2 pin 53 - Unused */
-// #define PIN_GPIO3             3       /* M.2 pin 51 - Unused */
+#define PIN_I2C1_SDA 2 /* M.2 pin 53 - I2C1 data  (MCP23017) */
+#define PIN_I2C1_SCL 3 /* M.2 pin 51 - I2C1 clock (MCP23017) */
 // #define PIN_GPIO4             4       /* M.2 pin 49 - Unused */
 // #define PIN_GPIO5             5       /* M.2 pin 47 - Unused */
 // #define PIN_GPIO6             6       /* M.2 pin 45 - Unused */
@@ -58,7 +58,7 @@
 // #define PIN_GPIO13            13      /* M.2 pin 29 - Unused */
 // #define PIN_GPIO14            14      /* M.2 pin 27 - Unused */
 // #define PIN_GPIO15            15      /* M.2 pin 25 - Unused */
-// #define PIN_GPIO16            16      /* M.2 pin 21 - Unused */
+#define PIN_5V_BUCK_EN 16 /* M.2 pin 21 - Unused */
 // #define PIN_GPIO17            17      /* M.2 pin 19 - Unused */
 // #define PIN_GPIO18            18      /* M.2 pin 17 - Unused */
 // #define PIN_GPIO19            19      /* M.2 pin 15 - Unused */
@@ -67,7 +67,7 @@
 // #define PIN_GPIO22            22      /* M.2 pin 7  - Unused */
 // #define PIN_GPIO23            23      /* M.2 pin 5  - Unused */
 // #define PIN_GPIO24            24      /* M.2 pin 3  - Unused */
-// #define PIN_GPIO25            25      /* M.2 pin 8  - Unused */
+#define PIN_MCP23017_RST 25 /* M.2 pin 8  - MCP23017 reset (active low) */
 // #define PIN_GPIO26            26      /* M.2 pin 6  - Unused */
 // #define PIN_GPIO27            27      /* M.2 pin 4  - Unused */
 
@@ -101,6 +101,21 @@
 #define EEPROM_I2C_INSTANCE i2c0
 #define EEPROM_I2C_ADDR 0x50             /* AT24C256 base address (A0=A1=GND) */
 #define EEPROM_I2C_BAUDRATE (400 * 1000) /* 400 kHz             */
+
+/* -------------------------------------------------------------------------- */
+/*  I2C1 instance used by MCP23017                                            */
+/* -------------------------------------------------------------------------- */
+#define MCP23017_I2C_INSTANCE i2c1
+#define MCP23017_I2C_ADDR 0x23             /* A0=1, A1=1, A2=0             */
+#define MCP23017_I2C_BAUDRATE (400 * 1000) /* 400 kHz                      */
+
+/* -------------------------------------------------------------------------- */
+/*  MCP23017 register addresses (IOCON.BANK = 0, default)                     */
+/* -------------------------------------------------------------------------- */
+#define MCP23017_REG_IODIRA 0x00
+#define MCP23017_REG_IODIRB 0x01
+#define MCP23017_REG_OLATA 0x14
+#define MCP23017_REG_OLATB 0x15
 
 /* -------------------------------------------------------------------------- */
 /*  Heartbeat LED - PWM configuration                                         */
